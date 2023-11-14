@@ -1,14 +1,5 @@
 import scapy.all as scapy 
-
-
-class NetworkDevice:
-    def __init__(self, ipAddr='none', macAddr='none'):
-        self.ipAddr = ipAddr
-        self.macAddr = macAddr
-
-    def __str__(self):
-        output = self.ipAddr + "\t\t" + self.macAddr
-        return output
+from src.deviceModel import NetworkDevice
 
 
 class NetworkScanner:
@@ -29,9 +20,12 @@ class NetworkScanner:
         unansweredDevices = allDevices[1]
 
         for element in answeredDevices:
-            device = NetworkDevice(ipAddr= element[1].psrc, macAddr=element[1].hwsrc)
+            device = NetworkDevice(ipAddr= element[1].psrc, macAddr=element[1].hwsrc) # getting the IP and MAC address from the tuple
             self.devices.append(device)
         
-        for requestPacket in unansweredDevices:
+        for requestPacket in unansweredDevices: # getting the IP address from the packet
             self.unansweredDevices.append(requestPacket.pdst)
+
+        for device in self.devices:
+            print(device.ipAddr)
             
