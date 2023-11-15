@@ -72,3 +72,10 @@ class NmapScanner:
             results[host] = host_info
 
         return results
+    
+
+    def get_scan_data(self, host_ip=None, data=None):
+        scan_data = {}
+        
+        
+        
