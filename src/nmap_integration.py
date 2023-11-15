@@ -25,11 +25,18 @@ class NmapScanner:
 
     def _read_hosts_from_file(self, host_file):
         hosts = []
-        with open(host_file, 'r') as hostsFile:
-            for line in hostsFile:
-                host = line.strip()
-                if host:
-                    hosts.append(host)
+        try:
+            with open(host_file, 'r') as hostsFile:
+                for line in hostsFile:
+                    host = line.strip()
+                    if host:
+                        hosts.append(host)
+        
+        except FileNotFoundError:  # file not found
+            raise FileNotFoundError(f"The specified host file {host_file} was not found.")
+        
+        except IOError as e:  # error during file reading
+            raise IOError(f"An error occurred while reading {host_file}: {e}")
         return hosts
 
     @staticmethod
