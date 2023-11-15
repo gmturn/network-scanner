@@ -33,7 +33,7 @@ scanner = NmapScanner()
 scanner.scan(hosts='192.168.1.0/24', scan_type='basic')
 ```
 
-## Reading Hosts from a File
+### Reading Hosts from a File
 
 To scan a list of hosts from a file:
 
