@@ -33,11 +33,11 @@ class NmapScanner:
         return hosts
 
     @staticmethod
-    def format_hosts_for_nmap(self, hosts):
+    def format_hosts_for_nmap(hosts):
         return ' '.join(hosts)
 
     @staticmethod
-    def _get_scan_arguments(self, scan_type):
+    def _get_scan_arguments(scan_type):
         scan_options = {
             'basic': '-sV',
             'stealth': '-sS',
