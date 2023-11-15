@@ -21,7 +21,7 @@ def test_scan_hosts():
     hostfile = "C:\\Users\\mclea\\OneDrive\\Desktop\\Projects\\vulnerability-scanner\\src\\iplist.txt"
 
     # Perform the scan
-    result = scanner.scan(hosts=target, scan_type='basic')
+    result = scanner.scan(scan_type='os', host_file=hostfile)
 
     # Display the results
     print("Nmap Scan Results:")
