@@ -17,12 +17,13 @@ def test_scan_hosts():
 
     # Define the target for scanning
     # This should be a safe target; ideally, use your own network or a test environment
-    target = "192.168.1.72"
+    #target = "192.168.1.66"
+    target = "scanme.nmap.org"
     hostfile = "C:\\Users\\mclea\\OneDrive\\Desktop\\Projects\\vulnerability-scanner\\src\\iplist.txt"
 
     # Perform the scan
     #result = scanner.scan(scan_type='os', host_file=hostfile)
-    result = scanner.scan(scan_type='stealth', host_file=hostfile)
+    result = scanner.scan(hosts=target, traceroute=True, scan_type = "os")
 
     # Display the results
     print("Nmap Scan Results:")
@@ -35,6 +36,8 @@ def test_scan_hosts():
     resultDict = scanner.get_open_ports_and_services("192.168.1.66")
     print(resultDict)
     resultDict = scanner.get_os("192.168.1.66")
+    print(resultDict)
+    resultDict = scanner.get_traceroute_results("192.168.1.66")
     print(resultDict)
 
 if __name__ == "__main__":

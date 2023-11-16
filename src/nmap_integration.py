@@ -5,15 +5,21 @@ class NmapScanner:
         self.scanner = nmap.PortScanner()
         self.scan_results = {}
 
-    def scan(self, hosts=None, arguments=None, scan_type='basic', host_file=None):
+    def scan(self, hosts=None, arguments=None, scan_type='basic', host_file=None, traceroute=False):
         if host_file and hosts:
             raise ValueError("Specify either host/s or a host_file, not both.")
+
 
         if arguments:
             scan_arguments = arguments
         else:
             scan_arguments = self._get_scan_arguments(scan_type)
 
+        if traceroute:
+            scan_arguments = scan_arguments + " --traceroute"
+        
+
+        # read from host file if one is given
         if host_file:
             hosts = self._read_hosts_from_file(host_file)
             self.scanner.scan(hosts=self.format_hosts_for_nmap(hosts), arguments=scan_arguments)
@@ -143,6 +149,22 @@ class NmapScanner:
             return os_info
         else:
             return "OS information not available"
+        
+    def get_traceroute_results(self, host):
+        if host not in self.scanner.all_hosts():
+            return "Host not found or traceroute not performed."
+
+        traceroute_info = self.scanner[host].get('traceroute', None)
+        if not traceroute_info:
+            return "Traceroute information not available."
+
+        # Format the traceroute information
+        formatted_traceroute = []
+        for hop in traceroute_info['hops']:
+            hop_info = f"Hop {hop['ttl']}: {hop['ipaddr']} ({hop['rtt']} ms)"
+            formatted_traceroute.append(hop_info)
+
+        return formatted_traceroute
 
     def convert_scan_data_json(self, scan_data):
         """
