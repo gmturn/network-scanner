@@ -22,11 +22,20 @@ def test_scan_hosts():
 
     # Perform the scan
     #result = scanner.scan(scan_type='os', host_file=hostfile)
-    result = scanner.scan(scan_type='os', hosts="192.168.1.65-73")
+    result = scanner.scan(scan_type='stealth', host_file=hostfile)
 
     # Display the results
     print("Nmap Scan Results:")
     print(result)
+
+    print()
+    print()
+    resultDict = scanner.get_open_ports_and_states("192.168.1.66")
+    print(resultDict)
+    resultDict = scanner.get_open_ports_and_services("192.168.1.66")
+    print(resultDict)
+    resultDict = scanner.get_os("192.168.1.66")
+    print(resultDict)
 
 if __name__ == "__main__":
     test_scan_hosts()
