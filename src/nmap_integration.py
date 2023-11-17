@@ -149,32 +149,38 @@ class NmapScanner:
         if host not in self.scanner.all_hosts():
             return None  # or some appropriate error handling
 
-        # Check if OS detection information is available
-        if 'osclass' in self.scanner[host]:
-            os_info = []
-            for os_match in self.scanner[host]['osclass']:
-                # Construct a string with OS details
-                os_detail = f"{os_match['osfamily']} {os_match['osgen']} ({os_match['accuracy']}% accuracy)"
-                os_info.append(os_detail)
-            return os_info
+        os_info = []
+        if 'osmatch' in self.scanner[host]:
+            for os_match in self.scanner[host]['osmatch']:
+                name = os_match['name']
+                accuracy = os_match['accuracy']
+                os_info.append(f"{name} ({accuracy}% accuracy)")
         else:
-            return "OS information not available"
+            return ['OS Information Not Available']
+
+        return os_info
+
         
     def get_traceroute_results(self, host):
+        """
+        Retrieves the traceroute results for a given host.
+        """
         if host not in self.scanner.all_hosts():
             return "Host not found or traceroute not performed."
 
-        traceroute_info = self.scanner[host].get('traceroute', None)
-        if not traceroute_info:
-            return "Traceroute information not available."
+        if 'traceroute' in self.scanner[host]:
+            traceroute_info = self.scanner[host]['traceroute']
+            if 'hops' in traceroute_info and traceroute_info['hops']:
+                formatted_traceroute = []
+                for hop in traceroute_info['hops']:
+                    hop_info = f"Hop {hop['ttl']}: {hop['ipaddr']} ({hop['rtt']} ms)"
+                    formatted_traceroute.append(hop_info)
+                return formatted_traceroute
+            else:
+                return ["Traceroute completed but no hops found."]
+        else:
+            return ["Traceroute information not available."]
 
-        # Format the traceroute information
-        formatted_traceroute = []
-        for hop in traceroute_info['hops']:
-            hop_info = f"Hop {hop['ttl']}: {hop['ipaddr']} ({hop['rtt']} ms)"
-            formatted_traceroute.append(hop_info)
-
-        return formatted_traceroute
 
     def convert_scan_data_json(self, scan_data):
         """
