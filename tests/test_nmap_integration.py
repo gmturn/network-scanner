@@ -38,6 +38,9 @@ def test_scan_hosts():
     print(resultDict)
     resultDict = scanner.get_traceroute_results("192.168.1.66")
     print(resultDict)
+    
+    scan_data = scanner.get_all_scan_data()
+    print(scanner.convert_scan_data_json(scan_data))
 
 if __name__ == "__main__":
     test_scan_hosts()

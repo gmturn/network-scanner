@@ -84,6 +84,16 @@ class NmapScanner:
         return results
     
 
+    def get_all_scan_data(self):
+        """
+        Returns all data from the most recent scan.
+        """
+        if hasattr(self, 'scanner') and self.scanner.all_hosts():
+            return self.scanner._scan_result
+        else:
+            return "No scan data available or scan not performed."
+
+
     # host_ips should be passed in as a list --> if host_ips == none, display all IPs stored in the scan
     def display_scan_data(self, host_ips=None, data=None):
         if host_ips and data == None:
@@ -130,7 +140,6 @@ class NmapScanner:
             return None  # or some error handling
 
         hostnames = self.scanner[host].hostnames()
-        # This might return a list of hostnames. You can format it as needed.
         return hostnames
 
     def get_os(self, host):
@@ -172,6 +181,3 @@ class NmapScanner:
         Converts scan data into JSON format.
         """
         return json.dumps(scan_data, indent=4)
-    
-
-        
