@@ -1,4 +1,5 @@
 import nmap
+import json
 
 class NmapScanner:
     def __init__(self):
