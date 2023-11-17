@@ -17,8 +17,7 @@ def test_scan_hosts():
 
     # Define the target for scanning
     # This should be a safe target; ideally, use your own network or a test environment
-    #target = "192.168.1.66"
-    target = "scanme.nmap.org"
+    target = "192.168.1.66"
     hostfile = "C:\\Users\\mclea\\OneDrive\\Desktop\\Projects\\vulnerability-scanner\\src\\iplist.txt"
 
     # Perform the scan
