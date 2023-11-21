@@ -26,9 +26,6 @@ class NetworkScanner:
         for requestPacket in unansweredDevices: # getting the IP address from the packet
             self.unansweredDevices.append(requestPacket.pdst)
 
-        for device in self.devices:
-            print(device.ipAddr)
-
         if save_to_file:
             main_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
             data_directory = f"{main_directory}/data"
