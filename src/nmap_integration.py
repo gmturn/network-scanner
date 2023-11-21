@@ -1,10 +1,13 @@
 import nmap
 import json
+import os
 
 class NmapScanner:
     def __init__(self):
         self.scanner = nmap.PortScanner()
         self.scan_results = {}
+        self.main_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+
 
     def scan(self, hosts=None, arguments=None, scan_type='basic', host_file=None, traceroute=False):
         if host_file and hosts:
@@ -182,8 +185,20 @@ class NmapScanner:
             return ["Traceroute information not available."]
 
 
-    def convert_scan_data_json(self, scan_data):
+    def write_json_to_file(self, directory, json_data):
         """
-        Converts scan data into JSON format.
+        Writes JSON data to a file named 'nmap-results.json' in the specified directory.
+        If the directory doesn't exist, an error is raised. The JSON data is formatted for readability.
         """
-        return json.dumps(scan_data, indent=4)
+        if not os.path.exists(directory):
+            raise FileNotFoundError(f"The directory '{directory}' does not exist.")
+
+        file_path = os.path.join(directory, "nmap-results.json")
+
+        try:
+            with open(file_path, "w") as file:
+                json.dump(json_data, file, indent=4)  # Use indent for better readability
+        
+        except IOError as e:
+            raise IOError(f"Failed to write to file {file_path}: {e}")
+

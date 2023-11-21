@@ -1,6 +1,6 @@
 import scapy.all as scapy 
 from src.deviceModel import NetworkDevice
-
+import os
 
 class NetworkScanner:
     def __init__(self, ipAddr_range='192.168.1.1/24', macAddr='ff:ff:ff:ff:ff:ff', timeout=2, verbose=False): # default ip address to home network format
@@ -11,7 +11,7 @@ class NetworkScanner:
         self.devices = [] # storing device objects
         self.unansweredDevices = []
 
-    def scanNetwork(self):
+    def scanNetwork(self, save_to_file=True):
         request = scapy.ARP(pdst=self.ipAddr_range)
         broadcast = scapy.Ether(dst=self.macAddr)
         requestBroadcast = broadcast / request
@@ -28,4 +28,22 @@ class NetworkScanner:
 
         for device in self.devices:
             print(device.ipAddr)
+
+        if save_to_file:
+            main_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+            data_directory = f"{main_directory}/data"
+
+            iplist_file = os.path.join(data_directory, "iplist.txt")
+            unansweredIP_file = os.path.join(data_directory, "unanswered-devices.txt")
+
+
+            with open(iplist_file, "w") as file:
+                for device in self.devices:
+                    file.write(f"{device.ipAddr}\n")
+            
+            with open(unansweredIP_file, "w") as file:
+                for ip in self.unansweredDevices:
+                    file.write(f"{ip}\n")
+
+            
             

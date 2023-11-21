@@ -22,7 +22,7 @@ def test_scan_hosts():
 
     # Perform the scan
     #result = scanner.scan(scan_type='os', host_file=hostfile)
-    result = scanner.scan(hosts=target, traceroute=True, scan_type = "os")
+    result = scanner.scan(hosts=target, traceroute=True, scan_type = "aggressive")
 
     # Display the results
     print("Nmap Scan Results:")
@@ -30,17 +30,24 @@ def test_scan_hosts():
 
     print()
     print()
-    resultDict = scanner.get_open_ports_and_states("192.168.1.66")
+    resultDict = scanner.get_open_ports_and_states(target)
     print(resultDict)
-    resultDict = scanner.get_open_ports_and_services("192.168.1.66")
+    resultDict = scanner.get_open_ports_and_services(target)
     print(resultDict)
-    resultDict = scanner.get_os("192.168.1.66")
+    resultDict = scanner.get_os(target)
     print(resultDict)
-    resultDict = scanner.get_traceroute_results("192.168.1.66")
+    resultDict = scanner.get_traceroute_results(target)
     print(resultDict)
     
+
+    working_directory = scanner.main_directory
+
+
     scan_data = scanner.get_all_scan_data()
-    print(scanner.convert_scan_data_json(scan_data))
+    data_directory = f"{working_directory}/data"
+
+    scanner.write_json_to_file(data_directory, scan_data)
+
 
 if __name__ == "__main__":
     test_scan_hosts()
