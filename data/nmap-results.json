@@ -1,6 +1,6 @@
 {
     "nmap": {
-        "command_line": "nmap -oX - -A --traceroute 192.168.1.66",
+        "command_line": "nmap -oX - -A --traceroute 192.168.1.106",
         "scaninfo": {
             "tcp": {
                 "method": "syn",
@@ -8,15 +8,15 @@
             }
         },
         "scanstats": {
-            "timestr": "Mon Nov 20 17:11:04 2023",
-            "elapsed": "33.67",
+            "timestr": "Thu Nov 23 17:54:08 2023",
+            "elapsed": "41.29",
             "uphosts": "1",
             "downhosts": "0",
             "totalhosts": "1"
         }
     },
     "scan": {
-        "192.168.1.66": {
+        "192.168.1.106": {
             "hostnames": [
                 {
                     "name": "",
@@ -24,7 +24,7 @@
                 }
             ],
             "addresses": {
-                "ipv4": "192.168.1.66"
+                "ipv4": "192.168.1.106"
             },
             "vendor": {},
             "status": {
@@ -32,8 +32,8 @@
                 "reason": "localhost-response"
             },
             "uptime": {
-                "seconds": "278904",
-                "lastboot": "Fri Nov 17 11:42:40 2023"
+                "seconds": "177042",
+                "lastboot": "Tue Nov 21 16:43:26 2023"
             },
             "tcp": {
                 "53": {
@@ -99,12 +99,12 @@
             },
             "hostscript": [
                 {
-                    "id": "smb2-time",
-                    "output": "\n  date: 2023-11-20T23:10:45\n  start_date: N/A"
-                },
-                {
                     "id": "smb2-security-mode",
                     "output": "\n  3:1:1: \n    Message signing enabled but not required"
+                },
+                {
+                    "id": "smb2-time",
+                    "output": "\n  date: 2023-11-23T23:53:58\n  start_date: N/A"
                 }
             ],
             "portused": [
@@ -121,7 +121,7 @@
                 {
                     "state": "closed",
                     "proto": "udp",
-                    "portid": "36170"
+                    "portid": "32954"
                 }
             ],
             "osmatch": [

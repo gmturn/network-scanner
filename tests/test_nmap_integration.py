@@ -17,12 +17,12 @@ def test_scan_hosts():
 
     # Define the target for scanning
     # This should be a safe target; ideally, use your own network or a test environment
-    target = "192.168.1.66"
+    target = "192.168.1.106"
     hostfile = "C:\\Users\\mclea\\OneDrive\\Desktop\\Projects\\vulnerability-scanner\\src\\iplist.txt"
 
     # Perform the scan
     #result = scanner.scan(scan_type='os', host_file=hostfile)
-    result = scanner.scan(hosts=target, traceroute=True, scan_type = "aggressive")
+    result = scanner.scan(hosts=target, traceroute=True, scan_type="aggressive")
 
     # Display the results
     print("Nmap Scan Results:")
